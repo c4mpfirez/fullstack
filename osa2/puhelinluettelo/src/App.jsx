@@ -75,59 +75,57 @@ const App = () => {
     setSearchTerm(event.target.value)
   }
   const handleSubmit = (event) => {
-    console.log("added to db.json:", newName, "with the number:", newNumber)
     event.preventDefault()
     const personObject = { name: newName, number: newNumber }
     const existing = persons.find(person => person.name === newName)
-  
     if (existing) {
       if (existing.number === newNumber) {
         alert(`${newName} is already added to phonebook`)
-      } else if (window.confirm(`${newName} is already added to phonebook, replace the old number?`)) {
-        console.log(`updated: ${newName} with new number: ${newNumber}`)
+      } else if (window.confirm(`${newName} is already added to phonebook, replace the old number?`)){
         personServices.updatePerson(existing.id, personObject)
           .then(returned => {
             setPersons(persons.map(p => p.id !== existing.id ? p : returned))
             setNewName('')
             setNewNumber('')
-            setErrorMessage({message: `Number of ${newName} is changed`, type: 'error1'})
-            console.log("number changed, showing error message")
+            setErrorMessage({ message: `Number of ${newName} is changed`, type: 'error1'})
             setTimeout(() => {
               setErrorMessage(null)
             }, 5000)
           })
           .catch(error => {
             if (error.response && error.response.status === 404) {
-              setErrorMessage({message: `Information of ${newName} has already been removed from server`, type: 'error2'})
+              setErrorMessage({ message: `Information of ${newName} has already been removed from server`, type: 'error2'})
             } else {
-              setErrorMessage({message: `Error updating ${newName}`, type: 'error2'})
+              setErrorMessage({ message: `Error updating ${newName}`, type: 'error2'})
             }
-            console.log("error updating, showing message")
             setTimeout(() => {
               setErrorMessage(null)
             }, 5000)
           })
       }
-  } else {
-    console.log(`added new: ${newName}`)
-    personServices.create(personObject)
-      .then(returnedPerson => {
-        setPersons(persons.concat(returnedPerson))
-        setNewName('')
-        setNewNumber('')
-        setErrorMessage({ message: `Added ${newName}`, type: 'error1' })
-        setTimeout(() => {
-          setErrorMessage(null)
-        }, 5000)
-      })
-      .catch(error => {
-        setErrorMessage(`[error] ${error.response.data.error}`)
-        setTimeout(() => {
-          setErrorMessage(null)
-        }, 5000)
-      })
+    } else {
+      personServices.create(personObject)
+        .then(returnedPerson => {
+          setPersons(persons.concat(returnedPerson))
+          setNewName('')
+          setNewNumber('')
+          setErrorMessage({ message: `Added ${newName}`, type: 'error1' })
+          setTimeout(() => {
+            setErrorMessage(null)
+          }, 5000)
+        })
+        .catch(error => {
+          const message = error.response.data.error
+            ? error.response.data.error
+            : 'Something went wrong'
+          setErrorMessage({ message, type: 'error2' })
+          setTimeout(() => {
+            setErrorMessage(null)
+          }, 5000)
+        })
+    }
   }
-}
+  
   const filteredPersons = searchTerm
     ? persons.filter(person =>
         person.name.toLowerCase().includes(searchTerm.toLowerCase()))
