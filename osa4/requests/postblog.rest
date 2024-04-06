@@ -1,0 +1,12 @@
+POST http://localhost:3001/api/blogs
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Impvbm5lIiwiaWQiOiI2NjBhZTZkNTk2ZjNmZDBjZTA5NTljN2QiLCJpYXQiOjE3MTE5OTA1MDR9.hxYr1Ar5xxADL0-bMPctA1dW8dxpvbSK-AXbLtBzm_M
+
+{
+    "name": " jonne5",
+    "title": "toimiikoyhteen222",
+    "author": "test1",
+    "url": "http://test.com",
+    "likes": 5000,
+    "userId": "65e21a0a2430fa1cb6b615ed"
+}

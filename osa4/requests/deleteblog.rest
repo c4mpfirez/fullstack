@@ -1,0 +1,4 @@
+// Lisää id ja token
+DELETE http://localhost:3001/api/blogs/660ae7e79ce10afca8ce8e0c
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Impvbm5lIiwiaWQiOiI2NjBhZTZkNTk2ZjNmZDBjZTA5NTljN2QiLCJpYXQiOjE3MTIwNjY5NDV9.ugHInPuMTRK_hJhA2pL9lTatVHmhudQ9NFgnbbE4DDI

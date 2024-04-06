@@ -1,0 +1,10 @@
+// Lisää vain id
+PUT http://localhost:3001/api/blogs/65dce9581e16bfd9ddf49b63
+Content-Type: application/json
+
+{
+  "title": "updated",
+  "author": "updated",
+  "url": "updated.url",
+  "likes": 12345
+}
